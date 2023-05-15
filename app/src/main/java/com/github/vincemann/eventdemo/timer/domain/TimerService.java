@@ -28,7 +28,7 @@ public class TimerService implements GlobalEventBusSubscriber {
     private Timer timer;
     private AtomicInteger counter = new AtomicInteger();
 
-    @Inject
+
     public TimerService() {
         GlobalEventBusRegistry.getInstance().registerSubscriber(this);
     }

@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.vincemann.eventdemo.App;
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.di.DIFragment;
+import com.github.vincemann.eventdemo.di.view.LoginViewModule;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.login.domain.LoginPresenter;
 import com.gunhansancar.eventbusexample.R;
@@ -36,8 +38,14 @@ public class LoginFragment extends DIFragment implements LoginPresenter.View{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ((App) getActivity().getApplication()).getAppComponent()
+                .plus(new LoginViewModule(this))
+                .inject(this);
+
+
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         ButterKnife.bind(this, view);
+        presenter.initialize();
         return view;
     }
 
@@ -51,4 +59,15 @@ public class LoginFragment extends DIFragment implements LoginPresenter.View{
         presenter.performLogin(editTextUsername.getText().toString(),editTextPassword.getText().toString());
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.pause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.resume();
+    }
 }

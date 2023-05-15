@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
+import lombok.Getter;
 
 public class App
         extends MultiDexApplication
@@ -27,7 +28,8 @@ public class App
     @Inject
     DispatchingAndroidInjector<Object> androidInjector;
 
-    private AppComponent mComponent;
+    @Getter
+    private AppComponent appComponent;
 
     private static App INSTANCE;
     private GlobalEventBusRegistry eventBusRegistry;
@@ -40,8 +42,8 @@ public class App
     @Override
     public void onCreate() {
         INSTANCE = this;
-        mComponent = DaggerAppComponent.builder().application(this).build();
-        mComponent.inject(this);
+        appComponent = DaggerAppComponent.builder().application(this).build();
+        appComponent.inject(this);
         startEventProcessing();
         super.onCreate();
     }

@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.vincemann.eventdemo.App;
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.di.DIFragment;
+import com.github.vincemann.eventdemo.di.view.LoginViewModule;
+import com.github.vincemann.eventdemo.di.view.TimerViewModule;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
@@ -38,8 +41,14 @@ public class TimerFragment extends DIFragment implements GlobalEventBusSubscribe
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ((App) getActivity().getApplication()).getAppComponent()
+                .plus(new TimerViewModule(this))
+                .inject(this);
+
+
         View view = inflater.inflate(R.layout.timer_fragment, container, false);
         ButterKnife.bind(this, view);
+        presenter.initialize();
 //        presenter = new LoginPresenter();
 
 
@@ -102,5 +111,17 @@ public class TimerFragment extends DIFragment implements GlobalEventBusSubscribe
     @Override
     public void navigateToLoginScreen() {
         GlobalEventBus.getInstance().post(new AttachFragmentEvent(new LoginFragment()));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.pause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.resume();
     }
 }

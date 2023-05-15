@@ -12,8 +12,6 @@ import java.util.List;
 
 public class GlobalEventBusRegistry extends AbstractEventBusRegistry<GlobalEventBus> {
 
-    // todo move out to DI @Provides method in EventBusModule, that also calls createDefaultSubscribers(subscribers) and autowires subs in
-
     protected static GlobalEventBusRegistry INSTANCE;
 
     public GlobalEventBusRegistry(Context applicationContext) {
@@ -34,12 +32,18 @@ public class GlobalEventBusRegistry extends AbstractEventBusRegistry<GlobalEvent
         return INSTANCE;
     }
 
+//    @Override
+//    protected List<EventBusSubscriber<GlobalEventBus>> createDefaultSubscribers() {
+//        List<EventBusSubscriber<GlobalEventBus>> subscribers = new ArrayList<>();
+//        subscribers.addAll(Arrays.asList(
+//                new DoLoginEventHandler()
+//        ));
+//        return subscribers;
+//    }
+
+
     @Override
     protected List<EventBusSubscriber<GlobalEventBus>> createDefaultSubscribers() {
-        List<EventBusSubscriber<GlobalEventBus>> subscribers = new ArrayList<>();
-        subscribers.addAll(Arrays.asList(
-                new DoLoginEventHandler()
-        ));
-        return subscribers;
+        return new ArrayList<>();
     }
 }

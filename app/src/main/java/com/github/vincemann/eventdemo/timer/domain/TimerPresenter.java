@@ -3,10 +3,12 @@ package com.github.vincemann.eventdemo.timer.domain;
 import android.util.Log;
 
 import com.github.vincemann.eventdemo.common.presentation.AbstractPresenter;
+//import com.github.vincemann.eventdemo.di.PerFragment;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 
 import javax.inject.Inject;
 
+// @PerFragment
 public class TimerPresenter extends AbstractPresenter
         implements TimerItemOnClickListener, TimerItemSwipeListener
 {
@@ -49,4 +51,6 @@ public class TimerPresenter extends AbstractPresenter
         public void displayTimerStarted();
         public void displayTimerStopped();
     }
+
+
 }
