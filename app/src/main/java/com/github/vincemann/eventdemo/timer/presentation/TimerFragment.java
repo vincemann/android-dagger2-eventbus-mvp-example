@@ -1,7 +1,5 @@
 package com.github.vincemann.eventdemo.timer.presentation;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,29 +16,25 @@ import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
-import com.github.vincemann.eventdemo.timer.domain.AddTimerElementEvent;
-import com.github.vincemann.eventdemo.timer.domain.StopTimerEvent;
-import com.github.vincemann.eventdemo.timer.domain.TimerService;
+import com.github.vincemann.eventdemo.timer.domain.TimerPresenter;
+import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemClickedAdapter;
+import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemSwipeAdapter;
 import com.gunhansancar.eventbusexample.R;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.support.DaggerFragment;
 
-public class TimerFragment extends DIFragment implements GlobalEventBusSubscriber {
+public class TimerFragment extends DIFragment implements GlobalEventBusSubscriber, TimerPresenter.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    TimerRecyclerAdapter adapter;
+    TimerElementRecyclerAdapter adapter;
 
-//    @Inject
-//    LoginFragment loginFragment;
+    @Inject
+    TimerPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,19 +44,16 @@ public class TimerFragment extends DIFragment implements GlobalEventBusSubscribe
 
 
 
-        adapter = new TimerRecyclerAdapter();
-        adapter.setOnItemClickListener(new TimerRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(TimerRecyclerAdapter.ItemHolder item, int position) {
-                GlobalEventBus.getInstance().post(new AttachFragmentEvent(new LoginFragment()));
-            }
-        });
+        adapter = new TimerElementRecyclerAdapter();
+        // creating adapters here to separate ui logic from business logic - no android imports in presenter wanted
+        adapter.setOnItemClickListener(new TimerItemClickedAdapter(presenter,adapter));
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        // creating adapters here to separate ui logic from business logic - no android imports in presenter wanted
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TimerItemSwipeAdapter(presenter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
         return view;
     }
@@ -81,35 +72,35 @@ public class TimerFragment extends DIFragment implements GlobalEventBusSubscribe
 
     @OnClick(R.id.startButton)
     public void onStartClicked() {
-        Toast.makeText(getActivity(), "Timer is started.", Toast.LENGTH_SHORT).show();
-        getActivity().startService(new Intent(getActivity(), TimerService.class));
+        presenter.startTimer();
     }
 
     @OnClick(R.id.stopButton)
     public void onStopClicked() {
         // todo usually you want to call the presenter here, which then triggers the event, handled in the presenter/service which calls methods on the
         // view interface this class is implementing. Abbreviated here
+        presenter.stopTimer();
+    }
+
+
+    @Override
+    public void displayTimerStarted() {
+        Toast.makeText(getActivity(), "Timer is started.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void displayTimerStopped() {
         Toast.makeText(getActivity(), "Timer is stopped.", Toast.LENGTH_SHORT).show();
-        GlobalEventBus.getInstance().post(new StopTimerEvent());
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEvent(AddTimerElementEvent event) {
-        adapter.append(event);
-        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
+
+    @Override
+    public void deleteTimerElement(int pos) {
+        adapter.delete(pos);
     }
 
-    ItemTouchHelper.SimpleCallback simpleItemTouchCallback
-            = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-        @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-            adapter.delete(viewHolder.getAdapterPosition());
-        }
-    };
+    @Override
+    public void navigateToLoginScreen() {
+        GlobalEventBus.getInstance().post(new AttachFragmentEvent(new LoginFragment()));
+    }
 }

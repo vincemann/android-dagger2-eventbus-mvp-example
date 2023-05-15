@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.github.vincemann.eventdemo.common.domain.AbstractEventBusRegistry;
 import com.github.vincemann.eventdemo.common.domain.EventBusSubscriber;
-import com.github.vincemann.eventdemo.login.domain.CorrectLoginEventHandler;
 import com.github.vincemann.eventdemo.login.domain.DoLoginEventHandler;
 
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GlobalEventBusRegistry extends AbstractEventBusRegistry<GlobalEventBus> {
+
+    // todo move out to DI @Provides method in EventBusModule, that also calls createDefaultSubscribers(subscribers) and autowires subs in
 
     protected static GlobalEventBusRegistry INSTANCE;
 
@@ -37,8 +38,7 @@ public class GlobalEventBusRegistry extends AbstractEventBusRegistry<GlobalEvent
     protected List<EventBusSubscriber<GlobalEventBus>> createDefaultSubscribers() {
         List<EventBusSubscriber<GlobalEventBus>> subscribers = new ArrayList<>();
         subscribers.addAll(Arrays.asList(
-                new DoLoginEventHandler(),
-                new CorrectLoginEventHandler()
+                new DoLoginEventHandler()
         ));
         return subscribers;
     }

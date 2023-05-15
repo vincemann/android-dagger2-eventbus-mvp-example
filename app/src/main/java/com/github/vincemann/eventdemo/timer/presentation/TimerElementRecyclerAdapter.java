@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.vincemann.eventdemo.timer.domain.TimerElement;
 import com.gunhansancar.eventbusexample.R;
-import com.github.vincemann.eventdemo.timer.domain.AddTimerElementEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by gunhansancar on 06/04/16.
  */
-public class TimerRecyclerAdapter extends RecyclerView.Adapter<TimerRecyclerAdapter.ItemHolder> {
+public class TimerElementRecyclerAdapter extends RecyclerView.Adapter<TimerElementRecyclerAdapter.ItemHolder> {
     private static int[] COLORS = {
             R.color.blue_500,
             R.color.green_500,
@@ -31,33 +31,37 @@ public class TimerRecyclerAdapter extends RecyclerView.Adapter<TimerRecyclerAdap
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
 
 
-    private List<AddTimerElementEvent> list = new ArrayList<>();
+    private List<TimerElement> timerElements = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
 
     @Override
-    public TimerRecyclerAdapter.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TimerElementRecyclerAdapter.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timer_event, parent, false);
         return new ItemHolder(itemView, this);
     }
 
     @Override
-    public void onBindViewHolder(TimerRecyclerAdapter.ItemHolder holder, int position) {
-        holder.bind(list.get(position));
+    public void onBindViewHolder(TimerElementRecyclerAdapter.ItemHolder holder, int position) {
+        holder.bind(timerElements.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return timerElements.size();
     }
 
-    public void append(AddTimerElementEvent event) {
-        list.add(event);
+    public void append(TimerElement element) {
+        timerElements.add(element);
         notifyItemInserted(getItemCount());
     }
 
     public void delete(int position) {
-        list.remove(position);
+        timerElements.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public TimerElement getItem(int position) {
+        return timerElements.get(position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -77,9 +81,9 @@ public class TimerRecyclerAdapter extends RecyclerView.Adapter<TimerRecyclerAdap
         @BindView(R.id.textView2) TextView textView2;
         @BindView(R.id.parentLayout) View parentLayout;
 
-        private TimerRecyclerAdapter adapter;
+        private TimerElementRecyclerAdapter adapter;
 
-        public ItemHolder(View itemView, TimerRecyclerAdapter parent) {
+        public ItemHolder(View itemView, TimerElementRecyclerAdapter parent) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
@@ -87,7 +91,7 @@ public class TimerRecyclerAdapter extends RecyclerView.Adapter<TimerRecyclerAdap
             this.adapter = parent;
         }
 
-        public void bind(AddTimerElementEvent item) {
+        public void bind(TimerElement item) {
             parentLayout.setBackgroundResource(COLORS[item.getId() % COLORS.length]);
             textView1.setText(String.format(Locale.ENGLISH, "Event ID: %d", item.getId()));
             textView2.setText(DATE_FORMAT.format(item.getDate()));

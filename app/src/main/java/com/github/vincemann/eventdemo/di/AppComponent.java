@@ -20,7 +20,8 @@ import dagger.android.AndroidInjector;
         AppModule.class,
         ActivityModule.class,
         FragmentModule.class,
-        LoginModule.class
+        LoginModule.class,
+        TimerModule.class
 })
 public interface AppComponent extends AndroidInjector<App> {
 

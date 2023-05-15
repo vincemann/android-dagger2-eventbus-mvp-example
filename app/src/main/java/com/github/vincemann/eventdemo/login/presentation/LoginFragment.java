@@ -1,6 +1,5 @@
 package com.github.vincemann.eventdemo.login.presentation;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.di.DIFragment;
+import com.github.vincemann.eventdemo.event.GlobalEventBus;
+import com.github.vincemann.eventdemo.login.domain.LoginPresenter;
 import com.gunhansancar.eventbusexample.R;
 
 import javax.inject.Inject;
@@ -16,10 +18,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.HasAndroidInjector;
-import dagger.android.support.DaggerFragment;
 
-public class LoginFragment extends DIFragment {
+public class LoginFragment extends DIFragment implements LoginPresenter.View{
 
     @BindView(R.id.editTextUsername)
     TextView editTextUsername;
@@ -38,8 +38,12 @@ public class LoginFragment extends DIFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         ButterKnife.bind(this, view);
-        presenter = new LoginPresenter();
         return view;
+    }
+
+    @Override
+    public void navigateToCorrectLoginScreen() {
+        GlobalEventBus.getInstance().post(new AttachFragmentEvent(new CorrectLoginFragment()));
     }
 
     @OnClick(R.id.buttonLogin)

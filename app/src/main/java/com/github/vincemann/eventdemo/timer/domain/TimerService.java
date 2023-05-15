@@ -16,57 +16,35 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.inject.Inject;
+
 /**
  * Created by gunhansancar on 06/04/16.
+ *
+ * @modifiedBy vincemann
  */
-public class TimerService extends Service implements GlobalEventBusSubscriber {
+public class TimerService implements GlobalEventBusSubscriber {
 
     private Timer timer;
     private AtomicInteger counter = new AtomicInteger();
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        startTimer();
-        return START_STICKY_COMPATIBILITY;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
+    @Inject
+    public TimerService() {
         GlobalEventBusRegistry.getInstance().registerSubscriber(this);
-
     }
 
-    @Override
-    public void onDestroy() {
-        GlobalEventBusRegistry.getInstance().unregisterSubscriber(this);
-        stopTimer();
-        super.onDestroy();
-    }
-
-    @Subscribe
-    public void onEvent(StopTimerEvent event) {
-        stopTimer();
-        stopSelf();
-    }
-
-    private void startTimer() {
+    protected void startTimer() {
         stopTimer();
         timer = new Timer();
         timer.scheduleAtFixedRate(new SimpleTimerTask(counter), 0, 3000);
     }
 
-    private void stopTimer() {
+    protected void stopTimer() {
         if (timer != null) {
             timer.cancel();
             timer = null;
         }
+        GlobalEventBusRegistry.getInstance().unregisterSubscriber(this);
     }
 
     private static class SimpleTimerTask extends TimerTask {
@@ -79,7 +57,11 @@ public class TimerService extends Service implements GlobalEventBusSubscriber {
 
         @Override
         public void run() {
-            GlobalEventBus.getInstance().postSticky(new AddTimerElementEvent(current.addAndGet(1)));
+            GlobalEventBus.getInstance().postSticky(
+                    new AddTimerElementEvent(
+                            new TimerElement(current.addAndGet(1))
+                    )
+            );
         }
     }
 }
