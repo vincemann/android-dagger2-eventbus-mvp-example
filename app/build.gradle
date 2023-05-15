@@ -1,0 +1,86 @@
+plugins {
+    id 'com.android.application'
+}
+
+
+
+android {
+    namespace 'com.gunhansancar.eventbusexample'
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId 'com.gunhansancar.eventbusexample'
+    }
+
+    buildscript {
+        repositories {
+            google()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:7.3.0'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+
+    implementation 'com.jakewharton:butterknife:10.2.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-android
+    implementation group: 'org.slf4j', name: 'slf4j-android', version: '1.7.28'
+
+    implementation "androidx.multidex:multidex:2.0.1"
+
+
+    // UI
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+
+    // EVENTBUS
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    // DI
+
+    //Dagger
+    implementation "com.google.dagger:dagger:$dagger_versions"
+    implementation "com.google.dagger:dagger-android:$dagger_versions"
+    implementation "com.google.dagger:dagger-android-support:$dagger_versions"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_versions"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_versions"
+
+
+//    // Dagger core dependencies
+//    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_versions"
+////    implementation "com.google.dagger:dagger:$dagger_versions"
+//
+////    implementation "com.google.dagger:dagger:2.33"
+//    implementation "com.google.dagger:dagger:2.33"
+//    implementation "com.google.dagger:dagger-android-support:2.27"
+//
+//    // Dagger Android dependencies
+//    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_versions"
+//    implementation "com.google.dagger:dagger-android:$dagger_versions"
+//    implementation "com.google.dagger:dagger-android-support:$dagger_versions"
+}
