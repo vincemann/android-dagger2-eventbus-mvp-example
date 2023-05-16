@@ -5,9 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.vincemann.eventdemo.di.DIFragment;
+import com.github.vincemann.eventdemo.di.DaggerFragment;
 import com.github.vincemann.eventdemo.di.scope.ActivityScope;
-import com.github.vincemann.eventdemo.di.scope.FragmentScope;
 import com.gunhansancar.eventbusexample.R;
 
 import javax.inject.Inject;
@@ -15,7 +14,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 @ActivityScope
-public class CorrectLoginFragment extends DIFragment {
+public class CorrectLoginFragment extends DaggerFragment {
 
     @Inject
     public CorrectLoginFragment() {

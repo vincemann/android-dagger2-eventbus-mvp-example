@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
-import com.github.vincemann.eventdemo.di.DIFragment;
+import com.github.vincemann.eventdemo.di.DaggerFragment;
 import com.github.vincemann.eventdemo.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.gunhansancar.eventbusexample.R;
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @ActivityScope
-public class LoginFragment extends DIFragment implements LoginContract.View{
+public class LoginFragment extends DaggerFragment implements LoginContract.View{
 
     @BindView(R.id.editTextUsername)
     TextView editTextUsername;

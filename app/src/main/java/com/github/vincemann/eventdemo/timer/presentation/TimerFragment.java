@@ -11,11 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
-import com.github.vincemann.eventdemo.di.DIFragment;
+import com.github.vincemann.eventdemo.di.DaggerFragment;
 import com.github.vincemann.eventdemo.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
-import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
-import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
 import com.github.vincemann.eventdemo.timer.domain.TimerElement;
 import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemClickedAdapter;
@@ -29,7 +27,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @ActivityScope
-public class TimerFragment extends DIFragment
+public class TimerFragment extends DaggerFragment
         implements TimerContract.View {
 
     @BindView(R.id.recyclerView)

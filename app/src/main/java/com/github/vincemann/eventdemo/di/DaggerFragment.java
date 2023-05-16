@@ -9,9 +9,8 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
-import dagger.android.support.AndroidSupportInjection;
 
-public abstract class DIFragment extends Fragment implements HasAndroidInjector {
+public abstract class DaggerFragment extends Fragment implements HasAndroidInjector {
 
     @Inject
     DispatchingAndroidInjector<Object> androidInjector;
