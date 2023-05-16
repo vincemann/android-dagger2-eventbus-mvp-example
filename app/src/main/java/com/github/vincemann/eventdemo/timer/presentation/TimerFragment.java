@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.common.di.DaggerFragment;
 import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
 import com.github.vincemann.eventdemo.timer.domain.TimerElement;
-import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemClickedAdapter;
 import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemSwipeAdapter;
 import com.gunhansancar.eventbusexample.R;
 
@@ -56,8 +55,8 @@ public class TimerFragment extends DaggerFragment
 
 
         adapter = new TimerElementRecyclerAdapter();
-        // creating adapters here to separate ui logic from business logic - no android imports in presenter wanted
-        adapter.setOnItemClickListener(new TimerItemClickedAdapter(presenter,adapter));
+        // creating onClick IF here to separate ui logic from business logic - no android imports in presenter wanted
+        adapter.setOnItemClickListener(presenter);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

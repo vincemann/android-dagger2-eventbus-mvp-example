@@ -25,7 +25,7 @@ public class EventBusModule {
 //            registry.registerSubscriber(subscriber);
 //        }
         registry.registerSubscriber(doLoginEventHandler);
-        registry.registerDefaultSubscribers();
+//        registry.registerDefaultSubscribers();
         return registry;
     }
 }

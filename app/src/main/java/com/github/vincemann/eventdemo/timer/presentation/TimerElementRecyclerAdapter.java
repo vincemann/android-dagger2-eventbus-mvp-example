@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vincemann.eventdemo.timer.domain.TimerElement;
+import com.github.vincemann.eventdemo.timer.domain.TimerItemOnClickListener;
 import com.gunhansancar.eventbusexample.R;
 
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by gunhansancar on 06/04/16.
@@ -32,11 +34,11 @@ public class TimerElementRecyclerAdapter extends RecyclerView.Adapter<TimerEleme
 
 
     private List<TimerElement> timerElements = new ArrayList<>();
-    private OnItemClickListener onItemClickListener;
+    private TimerItemOnClickListener onItemClickListener;
 
     @Override
     public TimerElementRecyclerAdapter.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timer_event, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timer_element, parent, false);
         return new ItemHolder(itemView, this);
     }
 
@@ -64,22 +66,22 @@ public class TimerElementRecyclerAdapter extends RecyclerView.Adapter<TimerEleme
         return timerElements.get(position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(TimerItemOnClickListener listener) {
         onItemClickListener = listener;
     }
 
-    public OnItemClickListener getOnItemClickListener() {
+    public TimerItemOnClickListener getOnItemClickListener() {
         return onItemClickListener;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(ItemHolder item, int position);
+        void onItemClick(TimerElement item);
     }
 
-    public static class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.textView1) TextView textView1;
-        @BindView(R.id.textView2) TextView textView2;
-        @BindView(R.id.parentLayout) View parentLayout;
+    class ItemHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/ {
+        @BindView(R.id.timer_item_id_text) TextView timerItemIdTextView;
+        @BindView(R.id.timer_item_time_text) TextView timerItemTimeTextView;
+        @BindView(R.id.timer_item) View timerItem;
 
         private TimerElementRecyclerAdapter adapter;
 
@@ -87,22 +89,30 @@ public class TimerElementRecyclerAdapter extends RecyclerView.Adapter<TimerEleme
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-            itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(this);
             this.adapter = parent;
         }
 
         public void bind(TimerElement item) {
-            parentLayout.setBackgroundResource(COLORS[item.getId() % COLORS.length]);
-            textView1.setText(String.format(Locale.ENGLISH, "Event ID: %d", item.getId()));
-            textView2.setText(DATE_FORMAT.format(item.getDate()));
+            timerItem.setBackgroundResource(COLORS[item.getId() % COLORS.length]);
+            timerItemIdTextView.setText(String.format(Locale.ENGLISH, "Event ID: %d", item.getId()));
+            timerItemTimeTextView.setText(DATE_FORMAT.format(item.getDate()));
         }
 
-        @Override
-        public void onClick(View v) {
-            final OnItemClickListener listener = adapter.getOnItemClickListener();
+        @OnClick(R.id.timer_item)
+        public void onClickTimerItem(){
+            TimerItemOnClickListener listener = adapter.getOnItemClickListener();
             if (listener != null) {
-                listener.onItemClick(this, getAdapterPosition());
+                listener.onTimerItemClicked(timerElements.get(getAdapterPosition()));
             }
         }
+
+//        @Override
+//        public void onClick(View v) {
+//            final OnItemClickListener listener = adapter.getOnItemClickListener();
+//            if (listener != null) {
+//                listener.onItemClick(this, getAdapterPosition());
+//            }
+//        }
     }
 }

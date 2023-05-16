@@ -5,7 +5,13 @@ import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import javax.inject.Inject;
+
 public class DoLoginEventHandler implements GlobalEventBusSubscriber {
+
+    @Inject
+    public DoLoginEventHandler() {
+    }
 
     @Subscribe
     public void onEvent(DoLoginEvent event) {

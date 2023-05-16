@@ -26,7 +26,8 @@ public class App
     private AppComponent appComponent;
 
     private static App INSTANCE;
-    private GlobalEventBusRegistry eventBusRegistry;
+    @Inject
+    GlobalEventBusRegistry eventBusRegistry;
 
 
     public static App getInstance() {
@@ -43,7 +44,7 @@ public class App
     }
 
     private void startEventProcessing() {
-        eventBusRegistry = new GlobalEventBusRegistry(this);
+//        eventBusRegistry = new GlobalEventBusRegistry(this);
         eventBusRegistry.registerDefaultSubscribers();
     }
 

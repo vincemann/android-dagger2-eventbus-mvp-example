@@ -56,7 +56,7 @@ public abstract class AbstractEventBusRegistry<T extends AbstractEventBus> {
      */
     public void registerSubscriber(EventBusSubscriber<? super T> subscriber) {
         if (eventSubscribers.contains(subscriber)) {
-            Log.d(this.getClass().getSimpleName()+ "-register", "registerSubscriber: EventBusSubscriber to register is already presenet in registry's subscriber list. Skipping.");
+            Log.d(this.getClass().getSimpleName()+ "-register", "registerSubscriber: EventBusSubscriber" + subscriber + " to register is already presenet in registry's subscriber list. Skipping.");
             return;
         }
 
