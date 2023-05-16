@@ -19,12 +19,6 @@ public class App
 {
 
 
-//    @Inject
-//    DispatchingAndroidInjector<Activity> activityInjector;
-//    @Inject
-//    DispatchingAndroidInjector<Fragment> fragmentInjector;
-
-
     @Inject
     DispatchingAndroidInjector<Object> androidInjector;
 
@@ -66,14 +60,4 @@ public class App
         return androidInjector;
     }
 
-//    // Dependency Injection
-//    @Override
-//    public DispatchingAndroidInjector<Activity> activityInjector() {
-//        return activityInjector;
-//    }
-//
-//    @Override
-//    public DispatchingAndroidInjector<Fragment> fragmentInjector() {
-//        return fragmentInjector;
-//    }
 }

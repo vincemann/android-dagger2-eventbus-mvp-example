@@ -4,16 +4,21 @@ import android.util.Log;
 
 import com.github.vincemann.eventdemo.common.presentation.AbstractPresenter;
 //import com.github.vincemann.eventdemo.di.PerFragment;
+import com.github.vincemann.eventdemo.common.presentation.EventConsumingPresenter;
 import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.timer.domain.AddTimerElementEvent;
 import com.github.vincemann.eventdemo.timer.domain.TimerElement;
 import com.github.vincemann.eventdemo.timer.domain.TimerService;
 import com.github.vincemann.eventdemo.timer.presentation.TimerContract;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
 @ActivityScope
 public class TimerPresenter
-        extends AbstractPresenter<TimerContract.View>
+        extends EventConsumingPresenter<TimerContract.View>
         implements TimerContract.Presenter
 
 {
@@ -39,6 +44,11 @@ public class TimerPresenter
     public void stopTimer(){
         view.displayTimerStopped();
         timerService.stopTimer();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(AddTimerElementEvent event) {
+        view.insertTimerElement(event.getElement());
     }
 
 

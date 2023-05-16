@@ -22,9 +22,11 @@ public abstract class TimerModule {
     @ContributesAndroidInjector
     abstract TimerFragment bindTimerFragment();
 
-    @Binds
-    @Singleton
-    abstract TimerService timerService(TimerService timerService);
+    @ActivityScope
+    @Provides
+    public static TimerService timerService(){
+        return new TimerService();
+    }
 
     @ActivityScope
     @Binds

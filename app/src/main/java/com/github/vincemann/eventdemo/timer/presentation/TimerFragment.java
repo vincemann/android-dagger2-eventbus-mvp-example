@@ -17,6 +17,7 @@ import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
+import com.github.vincemann.eventdemo.timer.domain.TimerElement;
 import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemClickedAdapter;
 import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemSwipeAdapter;
 import com.gunhansancar.eventbusexample.R;
@@ -29,7 +30,7 @@ import butterknife.OnClick;
 
 @ActivityScope
 public class TimerFragment extends DIFragment
-        implements GlobalEventBusSubscriber, TimerContract.View {
+        implements TimerContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -49,10 +50,10 @@ public class TimerFragment extends DIFragment
 //                .inject(this);
 
 
-        View view = inflater.inflate(R.layout.timer_fragment, container, false);
-        ButterKnife.bind(this, view);
+        View mainView = inflater.inflate(R.layout.timer_fragment, container, false);
+        presenter.takeView(this);
+        ButterKnife.bind(this, mainView);
         presenter.initialize();
-//        presenter = new LoginPresenter();
 
 
 
@@ -67,19 +68,7 @@ public class TimerFragment extends DIFragment
         // creating adapters here to separate ui logic from business logic - no android imports in presenter wanted
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new TimerItemSwipeAdapter(presenter));
         itemTouchHelper.attachToRecyclerView(recyclerView);
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        GlobalEventBusRegistry.getInstance().registerSubscriber(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        GlobalEventBusRegistry.getInstance().unregisterSubscriber(this);
+        return mainView;
     }
 
     @OnClick(R.id.startButton)
@@ -130,5 +119,11 @@ public class TimerFragment extends DIFragment
     public void onDestroyView() {
         super.onDestroyView();
         presenter.dropView();
+    }
+
+    @Override
+    public void insertTimerElement(TimerElement timerElement) {
+        adapter.append(timerElement);
+        recyclerView.scrollToPosition(adapter.getItemCount() - 1);
     }
 }

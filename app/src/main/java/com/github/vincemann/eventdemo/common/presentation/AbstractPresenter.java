@@ -3,7 +3,7 @@ package com.github.vincemann.eventdemo.common.presentation;
 import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
 
-public abstract class AbstractPresenter<T> implements GlobalEventBusSubscriber, BasePresenter<T> {
+public abstract class AbstractPresenter<T> implements BasePresenter<T> {
     protected T view;
 
     public AbstractPresenter() {
@@ -26,27 +26,18 @@ public abstract class AbstractPresenter<T> implements GlobalEventBusSubscriber, 
         this.view = null;
     }
 
-    /**
-     * Called when the presenter is initialized, this method represents the start of the presenter
-     * lifecycle.
-     */
-    public void initialize(){
-        GlobalEventBusRegistry.getInstance().registerSubscriber(this);
+    @Override
+    public void initialize() {
+
     }
 
-    /**
-     * Called when the presenter is resumed. After the initialization and when the presenter comes
-     * from a pause state.
-     */
-    public void resume(){
-        GlobalEventBusRegistry.getInstance().registerSubscriber(this);
+    @Override
+    public void resume() {
+
     }
 
-    /**
-     * Called when the presenter is paused.
-     */
-    public void pause(){
-        GlobalEventBusRegistry.getInstance().unregisterSubscriber(this);
-    }
+    @Override
+    public void pause() {
 
+    }
 }

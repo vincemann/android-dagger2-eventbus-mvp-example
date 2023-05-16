@@ -1,9 +1,12 @@
 package com.github.vincemann.eventdemo.di.module;
 
+import com.github.vincemann.eventdemo.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.di.scope.FragmentScope;
 import com.github.vincemann.eventdemo.login.domain.DoLoginEventHandler;
 import com.github.vincemann.eventdemo.login.presentation.CorrectLoginFragment;
+import com.github.vincemann.eventdemo.login.presentation.LoginContract;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
+import com.github.vincemann.eventdemo.login.presentation.LoginPresenter;
 
 import javax.inject.Singleton;
 
@@ -26,4 +29,8 @@ public abstract class LoginModule {
     @FragmentScope
     @ContributesAndroidInjector
     abstract CorrectLoginFragment bindCorrectLoginFragment();
+
+    @ActivityScope
+    @Binds
+    abstract LoginContract.Presenter loginPresenter(LoginPresenter presenter);
 }
