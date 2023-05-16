@@ -1,7 +1,7 @@
 package com.github.vincemann.eventdemo.di.module;
 
 import com.github.vincemann.eventdemo.MainActivity;
-import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

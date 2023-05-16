@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
-import com.github.vincemann.eventdemo.di.DaggerFragment;
-import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.di.DaggerFragment;
+import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.gunhansancar.eventbusexample.R;
 

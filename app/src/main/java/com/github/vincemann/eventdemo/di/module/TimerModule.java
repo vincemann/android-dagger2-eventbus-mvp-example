@@ -1,13 +1,11 @@
 package com.github.vincemann.eventdemo.di.module;
 
-import com.github.vincemann.eventdemo.di.scope.ActivityScope;
-import com.github.vincemann.eventdemo.di.scope.FragmentScope;
+import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.di.scope.FragmentScope;
 import com.github.vincemann.eventdemo.timer.domain.TimerService;
 import com.github.vincemann.eventdemo.timer.presentation.TimerContract;
 import com.github.vincemann.eventdemo.timer.presentation.TimerFragment;
 import com.github.vincemann.eventdemo.timer.presentation.TimerPresenter;
-
-import javax.inject.Singleton;
 
 import dagger.Binds;
 import dagger.Module;

@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.vincemann.eventdemo.di.DaggerFragment;
-import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.di.DaggerFragment;
+import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
 import com.gunhansancar.eventbusexample.R;
 
 import javax.inject.Inject;

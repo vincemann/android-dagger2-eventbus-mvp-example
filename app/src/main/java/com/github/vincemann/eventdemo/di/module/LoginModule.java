@@ -1,7 +1,7 @@
 package com.github.vincemann.eventdemo.di.module;
 
-import com.github.vincemann.eventdemo.di.scope.ActivityScope;
-import com.github.vincemann.eventdemo.di.scope.FragmentScope;
+import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.di.scope.FragmentScope;
 import com.github.vincemann.eventdemo.login.domain.DoLoginEventHandler;
 import com.github.vincemann.eventdemo.login.presentation.CorrectLoginFragment;
 import com.github.vincemann.eventdemo.login.presentation.LoginContract;

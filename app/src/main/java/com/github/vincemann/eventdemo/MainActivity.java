@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         attachFragment(event.getFragment());
     }
 
-    protected void attachFragment(android.app.Fragment fragment) {
+    private void attachFragment(android.app.Fragment fragment) {
         getFragmentManager().beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
     }
 

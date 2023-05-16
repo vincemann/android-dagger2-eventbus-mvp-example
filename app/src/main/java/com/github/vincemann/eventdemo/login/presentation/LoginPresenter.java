@@ -1,10 +1,9 @@
 package com.github.vincemann.eventdemo.login.presentation;
 
 
-import com.github.vincemann.eventdemo.common.presentation.AbstractPresenter;
 //import com.github.vincemann.eventdemo.di.PerFragment;
 import com.github.vincemann.eventdemo.common.presentation.EventConsumingPresenter;
-import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.login.domain.CorrectLoginEvent;
 import com.github.vincemann.eventdemo.login.domain.DoLoginEvent;

@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
-import com.github.vincemann.eventdemo.di.DaggerFragment;
-import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.common.di.DaggerFragment;
+import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
 import com.github.vincemann.eventdemo.timer.domain.TimerElement;
