@@ -1,17 +1,7 @@
 package com.github.vincemann.eventdemo.timer.domain;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
-
-import androidx.annotation.Nullable;
-
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
-import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
-import com.github.vincemann.eventdemo.timer.presentation.TimerContract;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,8 +48,8 @@ public class TimerService implements GlobalEventBusSubscriber {
         @Override
         public void run() {
             GlobalEventBus.getInstance().postSticky(
-                    new AddTimerElementEvent(
-                            new TimerElement(current.addAndGet(1))
+                    new AddTimerItemEvent(
+                            new TimerItem(current.addAndGet(1))
                     )
             );
         }

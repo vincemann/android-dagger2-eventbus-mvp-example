@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.vincemann.eventdemo.timer.domain.TimerElement;
+import com.github.vincemann.eventdemo.timer.domain.TimerItem;
 import com.github.vincemann.eventdemo.timer.domain.TimerItemOnClickListener;
 import com.gunhansancar.eventbusexample.R;
 
@@ -33,37 +33,37 @@ public class TimerElementRecyclerAdapter extends RecyclerView.Adapter<TimerEleme
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
 
 
-    private List<TimerElement> timerElements = new ArrayList<>();
+    private List<TimerItem> timerItems = new ArrayList<>();
     private TimerItemOnClickListener onItemClickListener;
 
     @Override
     public TimerElementRecyclerAdapter.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_timer_element, parent, false);
-        return new ItemHolder(itemView, this);
+        return new ItemHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(TimerElementRecyclerAdapter.ItemHolder holder, int position) {
-        holder.bind(timerElements.get(position));
+        holder.bind(timerItems.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return timerElements.size();
+        return timerItems.size();
     }
 
-    public void append(TimerElement element) {
-        timerElements.add(element);
+    public void append(TimerItem element) {
+        timerItems.add(element);
         notifyItemInserted(getItemCount());
     }
 
     public void delete(int position) {
-        timerElements.remove(position);
+        timerItems.remove(position);
         notifyItemRemoved(position);
     }
 
-    public TimerElement getItem(int position) {
-        return timerElements.get(position);
+    public TimerItem getItem(int position) {
+        return timerItems.get(position);
     }
 
     public void setOnItemClickListener(TimerItemOnClickListener listener) {
@@ -74,26 +74,26 @@ public class TimerElementRecyclerAdapter extends RecyclerView.Adapter<TimerEleme
         return onItemClickListener;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(TimerElement item);
-    }
+//    public interface OnItemClickListener {
+//        void onItemClick(TimerElement item);
+//    }
 
     class ItemHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/ {
         @BindView(R.id.timer_item_id_text) TextView timerItemIdTextView;
         @BindView(R.id.timer_item_time_text) TextView timerItemTimeTextView;
         @BindView(R.id.timer_item) View timerItem;
 
-        private TimerElementRecyclerAdapter adapter;
+//        private TimerElementRecyclerAdapter adapter;
 
-        public ItemHolder(View itemView, TimerElementRecyclerAdapter parent) {
+        public ItemHolder(View itemView/*, TimerElementRecyclerAdapter parent*/) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
 //            itemView.setOnClickListener(this);
-            this.adapter = parent;
+//            this.adapter = parent;
         }
 
-        public void bind(TimerElement item) {
+        public void bind(TimerItem item) {
             timerItem.setBackgroundResource(COLORS[item.getId() % COLORS.length]);
             timerItemIdTextView.setText(String.format(Locale.ENGLISH, "Event ID: %d", item.getId()));
             timerItemTimeTextView.setText(DATE_FORMAT.format(item.getDate()));
@@ -101,9 +101,9 @@ public class TimerElementRecyclerAdapter extends RecyclerView.Adapter<TimerEleme
 
         @OnClick(R.id.timer_item)
         public void onClickTimerItem(){
-            TimerItemOnClickListener listener = adapter.getOnItemClickListener();
+            TimerItemOnClickListener listener = getOnItemClickListener();
             if (listener != null) {
-                listener.onTimerItemClicked(timerElements.get(getAdapterPosition()));
+                listener.onTimerItemClicked(getItem(getAdapterPosition()));
             }
         }
 

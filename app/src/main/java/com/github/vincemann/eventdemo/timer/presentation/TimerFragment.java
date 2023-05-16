@@ -15,8 +15,7 @@ import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
-import com.github.vincemann.eventdemo.timer.domain.TimerElement;
-import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemSwipeAdapter;
+import com.github.vincemann.eventdemo.timer.domain.TimerItem;
 import com.gunhansancar.eventbusexample.R;
 
 import javax.inject.Inject;
@@ -119,8 +118,8 @@ public class TimerFragment extends DaggerFragment
     }
 
     @Override
-    public void insertTimerElement(TimerElement timerElement) {
-        adapter.append(timerElement);
+    public void insertTimerElement(TimerItem timerItem) {
+        adapter.append(timerItem);
         recyclerView.scrollToPosition(adapter.getItemCount() - 1);
     }
 }

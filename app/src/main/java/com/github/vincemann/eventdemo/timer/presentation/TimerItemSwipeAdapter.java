@@ -1,4 +1,4 @@
-package com.github.vincemann.eventdemo.timer.presentation.touchadapter;
+package com.github.vincemann.eventdemo.timer.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;

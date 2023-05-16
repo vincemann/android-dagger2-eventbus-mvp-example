@@ -2,11 +2,11 @@ package com.github.vincemann.eventdemo.timer.domain;
 
 import java.util.Date;
 
-public class TimerElement {
+public class TimerItem {
     private Date date;
     private int id;
 
-    public TimerElement(int id) {
+    public TimerItem(int id) {
         this.id = id;
         this.date = new Date();
     }

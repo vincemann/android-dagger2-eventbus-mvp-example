@@ -5,8 +5,8 @@ import android.util.Log;
 //import com.github.vincemann.eventdemo.di.PerFragment;
 import com.github.vincemann.eventdemo.common.presentation.EventConsumingPresenter;
 import com.github.vincemann.eventdemo.common.di.scope.ActivityScope;
-import com.github.vincemann.eventdemo.timer.domain.AddTimerElementEvent;
-import com.github.vincemann.eventdemo.timer.domain.TimerElement;
+import com.github.vincemann.eventdemo.timer.domain.AddTimerItemEvent;
+import com.github.vincemann.eventdemo.timer.domain.TimerItem;
 import com.github.vincemann.eventdemo.timer.domain.TimerService;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -45,14 +45,14 @@ public class TimerPresenter
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onEvent(AddTimerElementEvent event) {
-        view.insertTimerElement(event.getElement());
+    public void onEvent(AddTimerItemEvent event) {
+        view.insertTimerElement(event.getItem());
     }
 
 
     @Override
-    public void onTimerItemClicked(TimerElement timerElement) {
-        Log.d(this.getClass().getSimpleName()+":onTimerItemClicked", "onTimerItemClicked: clicked on element: " + timerElement);
+    public void onTimerItemClicked(TimerItem timerItem) {
+        Log.d(this.getClass().getSimpleName()+":onTimerItemClicked", "onTimerItemClicked: clicked on element: " + timerItem);
         view.navigateToLoginScreen();
     }
 

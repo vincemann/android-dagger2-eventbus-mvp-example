@@ -24,16 +24,11 @@ import dagger.android.AndroidInjector;
         AndroidInjectionModule.class,
         AppModule.class,
         ActivityModule.class,
-//        FragmentModule.class,
         EventBusModule.class,
-//        LoginModule.class,
-//        TimerModule.class
 })
 public interface AppComponent extends AndroidInjector<App> {
 
     void inject(App app);
-//    LoginViewComponent plus(LoginViewModule module);
-//    TimerViewComponent plus(TimerViewModule module);
 
 
     @Component.Builder
