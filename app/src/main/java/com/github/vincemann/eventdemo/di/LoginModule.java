@@ -1,32 +1,29 @@
 package com.github.vincemann.eventdemo.di;
 
+import com.github.vincemann.eventdemo.di.scope.FragmentScope;
 import com.github.vincemann.eventdemo.login.domain.DoLoginEventHandler;
-import com.github.vincemann.eventdemo.login.domain.LoginPresenter;
+import com.github.vincemann.eventdemo.login.presentation.CorrectLoginFragment;
+import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
-public class LoginModule {
+public abstract class LoginModule {
 
-//    @Singleton
-//    @Binds
-//    public abstract LoginPresenter loginPresenter(LoginPresenter presenter);
 
-//    @Provides
-//    @Singleton
-//    public LoginPresenter loginPresenter(LoginPresenter.View view){
-//        return new LoginPresenter(view);
-//    }
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract LoginFragment bindLoginFragment();
 
-    @Provides
+    @Binds
     @Singleton
-    public DoLoginEventHandler doLoginEventHandler(){
-        return new DoLoginEventHandler();
-    }
-//    @Singleton
-//    @Binds
-//    public abstract DoLoginEventHandler doLoginEventHandler(DoLoginEventHandler presenter);
+    abstract DoLoginEventHandler doLoginEventHandler(DoLoginEventHandler eventHandler);
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract CorrectLoginFragment bindCorrectLoginFragment();
 }

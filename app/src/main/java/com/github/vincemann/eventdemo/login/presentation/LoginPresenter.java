@@ -1,26 +1,28 @@
-package com.github.vincemann.eventdemo.login.domain;
+package com.github.vincemann.eventdemo.login.presentation;
 
 
 import com.github.vincemann.eventdemo.common.presentation.AbstractPresenter;
 //import com.github.vincemann.eventdemo.di.PerFragment;
+import com.github.vincemann.eventdemo.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
+import com.github.vincemann.eventdemo.login.domain.CorrectLoginEvent;
+import com.github.vincemann.eventdemo.login.domain.DoLoginEvent;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
-// @PerFragment
-public class LoginPresenter extends AbstractPresenter {
+@ActivityScope
+public class LoginPresenter
+        extends AbstractPresenter<LoginContract.View>
+        implements LoginContract.Presenter{
 
-    private View view;
 
     @Inject
-    public LoginPresenter(View view) {
-        this.view = view;
+    public LoginPresenter() {
     }
 
-
-
+    @Override
     public void performLogin(String username, String password) {
         GlobalEventBus.getInstance().post(new DoLoginEvent(username, password));
     }
@@ -30,7 +32,5 @@ public class LoginPresenter extends AbstractPresenter {
         view.navigateToCorrectLoginScreen();
     }
 
-    public interface View{
-        void navigateToCorrectLoginScreen();
-    }
+
 }

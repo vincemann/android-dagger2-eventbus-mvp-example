@@ -1,22 +1,34 @@
 package com.github.vincemann.eventdemo.di;
 
-import com.github.vincemann.eventdemo.timer.domain.TimerPresenter;
+import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.di.scope.FragmentScope;
 import com.github.vincemann.eventdemo.timer.domain.TimerService;
+import com.github.vincemann.eventdemo.timer.presentation.TimerContract;
+import com.github.vincemann.eventdemo.timer.presentation.TimerFragment;
+import com.github.vincemann.eventdemo.timer.presentation.TimerPresenter;
 
 import javax.inject.Singleton;
 
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
-public class TimerModule {
+public abstract class TimerModule {
 
-    @Provides
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract TimerFragment bindTimerFragment();
+
+    @Binds
     @Singleton
-    public TimerService timerService(){
-        return new TimerService();
-    }
+    abstract TimerService timerService(TimerService timerService);
+
+    @ActivityScope
+    @Binds
+    abstract TimerContract.Presenter presenter(TimerPresenter presenter);
 
 //    @Provides
 //    @Singleton

@@ -3,10 +3,6 @@ package com.github.vincemann.eventdemo.di;
 import android.app.Application;
 
 import com.github.vincemann.eventdemo.App;
-import com.github.vincemann.eventdemo.di.view.LoginViewComponent;
-import com.github.vincemann.eventdemo.di.view.LoginViewModule;
-import com.github.vincemann.eventdemo.di.view.TimerViewComponent;
-import com.github.vincemann.eventdemo.di.view.TimerViewModule;
 
 import javax.inject.Singleton;
 
@@ -23,7 +19,7 @@ import dagger.android.AndroidInjector;
         AndroidInjectionModule.class,
         AppModule.class,
         ActivityModule.class,
-        FragmentModule.class,
+//        FragmentModule.class,
         EventBusModule.class,
         LoginModule.class,
         TimerModule.class
@@ -31,8 +27,8 @@ import dagger.android.AndroidInjector;
 public interface AppComponent extends AndroidInjector<App> {
 
     void inject(App app);
-    LoginViewComponent plus(LoginViewModule module);
-    TimerViewComponent plus(TimerViewModule module);
+//    LoginViewComponent plus(LoginViewModule module);
+//    TimerViewComponent plus(TimerViewModule module);
 
 
     @Component.Builder

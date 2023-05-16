@@ -1,19 +1,22 @@
-package com.github.vincemann.eventdemo.timer.domain;
+package com.github.vincemann.eventdemo.timer.presentation;
 
 import android.util.Log;
 
 import com.github.vincemann.eventdemo.common.presentation.AbstractPresenter;
 //import com.github.vincemann.eventdemo.di.PerFragment;
-import com.github.vincemann.eventdemo.event.GlobalEventBus;
+import com.github.vincemann.eventdemo.di.scope.ActivityScope;
+import com.github.vincemann.eventdemo.timer.domain.TimerElement;
+import com.github.vincemann.eventdemo.timer.domain.TimerService;
+import com.github.vincemann.eventdemo.timer.presentation.TimerContract;
 
 import javax.inject.Inject;
 
-// @PerFragment
-public class TimerPresenter extends AbstractPresenter
-        implements TimerItemOnClickListener, TimerItemSwipeListener
-{
+@ActivityScope
+public class TimerPresenter
+        extends AbstractPresenter<TimerContract.View>
+        implements TimerContract.Presenter
 
-    private View view;
+{
     private TimerService timerService;
 
     @Override
@@ -22,16 +25,17 @@ public class TimerPresenter extends AbstractPresenter
     }
 
     @Inject
-    public TimerPresenter(View view, TimerService timerService) {
-        this.view = view;
+    public TimerPresenter(TimerService timerService) {
         this.timerService = timerService;
     }
 
+    @Override
     public void startTimer(){
         view.displayTimerStarted();
         timerService.startTimer();
     }
 
+    @Override
     public void stopTimer(){
         view.displayTimerStopped();
         timerService.stopTimer();
@@ -44,13 +48,6 @@ public class TimerPresenter extends AbstractPresenter
         view.navigateToLoginScreen();
     }
 
-
-    public interface View{
-        public void navigateToLoginScreen();
-        public void deleteTimerElement(int pos);
-        public void displayTimerStarted();
-        public void displayTimerStopped();
-    }
 
 
 }

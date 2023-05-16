@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.github.vincemann.eventdemo.App;
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.di.DIFragment;
-import com.github.vincemann.eventdemo.di.view.LoginViewModule;
+import com.github.vincemann.eventdemo.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
-import com.github.vincemann.eventdemo.login.domain.LoginPresenter;
 import com.gunhansancar.eventbusexample.R;
 
 import javax.inject.Inject;
@@ -21,7 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginFragment extends DIFragment implements LoginPresenter.View{
+@ActivityScope
+public class LoginFragment extends DIFragment implements LoginContract.View{
 
     @BindView(R.id.editTextUsername)
     TextView editTextUsername;
@@ -33,20 +32,24 @@ public class LoginFragment extends DIFragment implements LoginPresenter.View{
     Button buttonLogin;
 
     @Inject
-    LoginPresenter presenter;
+    LoginContract.Presenter presenter;
 
+    @Inject
+    public LoginFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((App) getActivity().getApplication()).getAppComponent()
-                .plus(new LoginViewModule(this))
-                .inject(this);
+//        ((App) getActivity().getApplication()).getAppComponent()
+//                .plus(new LoginViewModule(this))
+//                .inject(this);
 
 
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
-        ButterKnife.bind(this, view);
+        View mainView = inflater.inflate(R.layout.login_fragment, container, false);
+        ButterKnife.bind(this, mainView);
+        presenter.takeView(this);
         presenter.initialize();
-        return view;
+        return mainView;
     }
 
     @Override
@@ -69,5 +72,11 @@ public class LoginFragment extends DIFragment implements LoginPresenter.View{
     public void onResume() {
         super.onResume();
         presenter.resume();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.dropView();
     }
 }

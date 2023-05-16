@@ -10,16 +10,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.vincemann.eventdemo.App;
 import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.di.DIFragment;
-import com.github.vincemann.eventdemo.di.view.LoginViewModule;
-import com.github.vincemann.eventdemo.di.view.TimerViewModule;
+import com.github.vincemann.eventdemo.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
 import com.github.vincemann.eventdemo.login.presentation.LoginFragment;
-import com.github.vincemann.eventdemo.timer.domain.TimerPresenter;
 import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemClickedAdapter;
 import com.github.vincemann.eventdemo.timer.presentation.touchadapter.TimerItemSwipeAdapter;
 import com.gunhansancar.eventbusexample.R;
@@ -30,20 +27,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TimerFragment extends DIFragment implements GlobalEventBusSubscriber, TimerPresenter.View {
+@ActivityScope
+public class TimerFragment extends DIFragment
+        implements GlobalEventBusSubscriber, TimerContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     TimerElementRecyclerAdapter adapter;
 
     @Inject
-    TimerPresenter presenter;
+    TimerContract.Presenter presenter;
+
+    @Inject
+    public TimerFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((App) getActivity().getApplication()).getAppComponent()
-                .plus(new TimerViewModule(this))
-                .inject(this);
+//        ((App) getActivity().getApplication()).getAppComponent()
+//                .plus(new TimerViewModule(this))
+//                .inject(this);
 
 
         View view = inflater.inflate(R.layout.timer_fragment, container, false);
@@ -86,8 +89,6 @@ public class TimerFragment extends DIFragment implements GlobalEventBusSubscribe
 
     @OnClick(R.id.stopButton)
     public void onStopClicked() {
-        // todo usually you want to call the presenter here, which then triggers the event, handled in the presenter/service which calls methods on the
-        // view interface this class is implementing. Abbreviated here
         presenter.stopTimer();
     }
 
@@ -123,5 +124,11 @@ public class TimerFragment extends DIFragment implements GlobalEventBusSubscribe
     public void onResume() {
         super.onResume();
         presenter.resume();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.dropView();
     }
 }

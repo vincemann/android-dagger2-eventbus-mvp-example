@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import com.github.vincemann.eventdemo.event.GlobalEventBus;
 import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
+import com.github.vincemann.eventdemo.timer.presentation.TimerContract;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -18,11 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.inject.Inject;
 
-/**
- * Created by gunhansancar on 06/04/16.
- *
- * @modifiedBy vincemann
- */
+
 public class TimerService implements GlobalEventBusSubscriber {
 
     private Timer timer;
@@ -33,19 +30,21 @@ public class TimerService implements GlobalEventBusSubscriber {
         GlobalEventBusRegistry.getInstance().registerSubscriber(this);
     }
 
-    protected void startTimer() {
+    public void startTimer() {
         stopTimer();
         timer = new Timer();
         timer.scheduleAtFixedRate(new SimpleTimerTask(counter), 0, 3000);
     }
 
-    protected void stopTimer() {
+    public void stopTimer() {
         if (timer != null) {
             timer.cancel();
             timer = null;
         }
         GlobalEventBusRegistry.getInstance().unregisterSubscriber(this);
     }
+
+
 
     private static class SimpleTimerTask extends TimerTask {
 
