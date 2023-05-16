@@ -1,4 +1,4 @@
-package com.github.vincemann.eventdemo.di;
+package com.github.vincemann.eventdemo.di.module;
 
 import android.content.Context;
 

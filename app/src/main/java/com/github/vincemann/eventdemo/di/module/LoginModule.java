@@ -1,4 +1,4 @@
-package com.github.vincemann.eventdemo.di;
+package com.github.vincemann.eventdemo.di.module;
 
 import com.github.vincemann.eventdemo.di.scope.FragmentScope;
 import com.github.vincemann.eventdemo.login.domain.DoLoginEventHandler;

@@ -1,4 +1,4 @@
-package com.github.vincemann.eventdemo.di;
+package com.github.vincemann.eventdemo.di.module;
 
 import com.github.vincemann.eventdemo.di.scope.ActivityScope;
 import com.github.vincemann.eventdemo.di.scope.FragmentScope;
