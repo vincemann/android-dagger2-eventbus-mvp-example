@@ -1,4 +1,4 @@
-package com.github.vincemann.eventdemo.common.domain;
+package com.github.vincemann.eventdemo.common.event;
 
 import android.app.Fragment;
 

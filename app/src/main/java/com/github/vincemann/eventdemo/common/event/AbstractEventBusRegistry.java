@@ -1,12 +1,9 @@
-package com.github.vincemann.eventdemo.common.domain;
+package com.github.vincemann.eventdemo.common.event;
 
 import android.content.Context;
 import android.util.Log;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

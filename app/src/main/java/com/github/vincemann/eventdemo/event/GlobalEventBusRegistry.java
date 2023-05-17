@@ -2,12 +2,10 @@ package com.github.vincemann.eventdemo.event;
 
 import android.content.Context;
 
-import com.github.vincemann.eventdemo.common.domain.AbstractEventBusRegistry;
-import com.github.vincemann.eventdemo.common.domain.EventBusSubscriber;
-import com.github.vincemann.eventdemo.login.domain.DoLoginEventHandler;
+import com.github.vincemann.eventdemo.common.event.AbstractEventBusRegistry;
+import com.github.vincemann.eventdemo.common.event.EventBusSubscriber;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GlobalEventBusRegistry extends AbstractEventBusRegistry<GlobalEventBus> {

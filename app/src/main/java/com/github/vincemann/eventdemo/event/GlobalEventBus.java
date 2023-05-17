@@ -1,6 +1,6 @@
 package com.github.vincemann.eventdemo.event;
 
-import com.github.vincemann.eventdemo.common.domain.AbstractEventBus;
+import com.github.vincemann.eventdemo.common.event.AbstractEventBus;
 
 public class GlobalEventBus extends AbstractEventBus {
 

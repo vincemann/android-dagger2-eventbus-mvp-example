@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.vincemann.eventdemo.common.domain.AttachFragmentEvent;
+import com.github.vincemann.eventdemo.common.event.AttachFragmentEvent;
 import com.github.vincemann.eventdemo.event.GlobalEventBusRegistry;
 import com.github.vincemann.eventdemo.event.GlobalEventBusSubscriber;
 import com.github.vincemann.eventdemo.timer.presentation.TimerFragment;

@@ -1,7 +1,6 @@
 package com.github.vincemann.eventdemo.event;
 
-import com.github.vincemann.eventdemo.common.domain.EventBusSubscriber;
-import com.github.vincemann.eventdemo.event.GlobalEventBus;
+import com.github.vincemann.eventdemo.common.event.EventBusSubscriber;
 
 public interface GlobalEventBusSubscriber extends EventBusSubscriber<GlobalEventBus> {
 }
