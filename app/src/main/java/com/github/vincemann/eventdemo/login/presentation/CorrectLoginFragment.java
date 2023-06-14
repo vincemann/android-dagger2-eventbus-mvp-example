@@ -13,12 +13,8 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
-@ActivityScope
 public class CorrectLoginFragment extends DaggerFragment {
 
-    @Inject
-    public CorrectLoginFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

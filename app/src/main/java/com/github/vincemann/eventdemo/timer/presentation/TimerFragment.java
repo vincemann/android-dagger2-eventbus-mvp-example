@@ -24,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@ActivityScope
 public class TimerFragment extends DaggerFragment
         implements TimerContract.View {
 
@@ -34,10 +33,6 @@ public class TimerFragment extends DaggerFragment
 
     @Inject
     TimerContract.Presenter presenter;
-
-    @Inject
-    public TimerFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

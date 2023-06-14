@@ -19,7 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-@ActivityScope
 public class LoginFragment extends DaggerFragment implements LoginContract.View{
 
     @BindView(R.id.editTextUsername)
@@ -34,9 +33,6 @@ public class LoginFragment extends DaggerFragment implements LoginContract.View{
     @Inject
     LoginContract.Presenter presenter;
 
-    @Inject
-    public LoginFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
