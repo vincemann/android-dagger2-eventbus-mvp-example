@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
-@ActivityScope
+//@ActivityScope
 public class TimerPresenter
         extends EventConsumingPresenter<TimerContract.View>
         implements TimerContract.Presenter

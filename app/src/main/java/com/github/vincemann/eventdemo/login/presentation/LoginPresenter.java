@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
-@ActivityScope
+//@ActivityScope
 public class LoginPresenter
         extends EventConsumingPresenter<LoginContract.View>
         implements LoginContract.Presenter {
